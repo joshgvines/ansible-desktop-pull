@@ -1,0 +1,5 @@
+---
+- name: neovim
+  apt:
+    name: neovim
+    state: present

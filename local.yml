@@ -4,46 +4,6 @@
   become: true
 
   tasks:
-  - name: Update and upgrade apt
-    apt:
-      upgrade: yes
-      update_cache: yes
 
-  - name: install packages
-    package:
-      name:
-        - apt-transport-https
-        - software-properties-common
-
-  - name: get dev nodesource
-    get_url:
-      url: https://deb.nodesource.com/setup_18.x
-      dest: /var/tmp/setup_18.sh
-      mode: '+x'
-
-  - name: register nodsource
-    become: true
-    stat:
-      path: /var/tmp/setup_18.sh
-    register: node_setup
-
-  - name: Exec nodesource setup sh
-    become: true
-    shell: /var/tmp/setup_18.sh
-    when: node_setup.stat.exists
-
-  - name: Remove nodesource setup sh
-    become: true
-    file:
-      path: /var/tmp/setup_18.sh
-      state: absent
-
-  - name: install nodejs
-    apt:
-      name: nodejs
-      state: present
-
-  - name: neovim
-    apt:
-      name: neovim
-      state: present
+    - import_tasks: ./tasks/debian-tasks.yml
+      when: ansible_os_family == 'Debian'
