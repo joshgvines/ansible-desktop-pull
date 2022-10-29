@@ -4,15 +4,21 @@
     upgrade: yes
     update_cache: yes
 
-- name: Install Packages
-  package:
-    name:
+- name: Install Required System Packages
+  apt:
+    pkg:
       - apt-transport-https
       - software-properties-common
-    state: present
+      - ca-certificates
+      - curl
+    state: latest
+    update_cache: true
 
 - name: Nodejs Setup
   import_tasks: nodejs.yml
 
 - name: Neovim Setup
   import_tasks: neovim.yml
+
+- name: Docker Setup
+  import_tasks: docker.yml
