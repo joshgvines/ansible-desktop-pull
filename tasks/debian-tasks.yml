@@ -16,11 +16,11 @@
     update_cache: true
 
 # Temp fix to set distro_codename for apt repos
-- name: set distro codename when OS is Linux Mint
+- name: Set distro codename for repos
   ansible.builtin.set_fact:
     distro_codename: "{{ ansible_distribution_release }}"
 
-- name: set distro codename when OS is Linux Mint
+- name: Override distro codename when OS is Linux Mint
   ansible.builtin.set_fact:
     distro_codename: focal
   when: ansible_facts['distribution'] == 'Linux Mint'
