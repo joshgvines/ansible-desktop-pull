@@ -1,0 +1,26 @@
+---
+- name: check if cargo is installed
+  shell: command -v cargo
+  register: cargo_exists
+  ignore_errors: yes
+
+- name: Rust Install gcc
+  when: cargo_exists is failed
+  apt:
+    name: gcc
+    state: present
+
+- name: Download Installer
+  when: cargo_exists is failed
+  shell: "curl https://sh.rustup.rs -sSf | sh -s -- -y"
+  changed_when: false
+
+    #   url: https://sh.rustup.rs
+    #dest: /tmp/sh.rustup.rs
+    #mode: '0755'
+    #force: 'yes'
+
+    #- name: install rust/cargo
+    # when: cargo_exists is failed
+    #shell: /tmp/sh.rustup.rs -s -y
+

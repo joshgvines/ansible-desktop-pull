@@ -10,6 +10,7 @@
       - apt-transport-https
       - software-properties-common
       - ca-certificates
+      - build-essential
       - curl
     state: latest
     update_cache: true
@@ -30,3 +31,7 @@
 - name: Docker Setup
   tags: docker
   import_tasks: docker.yml
+
+- name: Rust Setup
+  tags: rust
+  import_tasks: rust.yml
