@@ -15,10 +15,13 @@
     update_cache: true
 
 - name: Nodejs Setup
+  tags: nodejs
   import_tasks: nodejs.yml
 
 - name: Neovim Setup
+  tags: nvim
   import_tasks: neovim.yml
 
 - name: Docker Setup
+  tags: docker
   import_tasks: docker.yml
