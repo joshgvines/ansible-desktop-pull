@@ -6,7 +6,7 @@
 
 - name: Docker repo
   apt_repository: 
-    repo: deb https://download.docker.com/linux/ubuntu focal stable  
+    repo: deb https://download.docker.com/linux/ubuntu {{ distro_codename }} stable  
     state: present
 
 - name: Update apt and install docker-ce

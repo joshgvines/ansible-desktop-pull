@@ -14,6 +14,16 @@
     state: latest
     update_cache: true
 
+- name: set distro codename when OS is Linux Mint
+  ansible.builtin.set_fact:
+    distro_codename: focal
+  when: ansible_facts['distribution'] == 'Linux Mint'
+
+    #- name: Add Ansible PPA
+    # ansible.builtin.apt_repository:
+    #repo: "ppa:ansible/ansible"
+    #codename: "{{ distro_codename | default(omit) }}"
+
 - name: Nodejs Setup
   tags: nodejs
   import_tasks: nodejs.yml
