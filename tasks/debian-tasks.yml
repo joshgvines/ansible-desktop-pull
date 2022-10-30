@@ -4,15 +4,29 @@
     upgrade: yes
     update_cache: yes
 
-- name: Install Packages
-  package:
-    name:
+- name: Install Required System Packages
+  apt:
+    pkg:
       - apt-transport-https
       - software-properties-common
-    state: present
+      - ca-certificates
+      - curl
+    state: latest
+    update_cache: true
+
+- name: set distro codename when OS is Linux Mint
+  ansible.builtin.set_fact:
+    distro_codename: focal
+  when: ansible_facts['distribution'] == 'Linux Mint'
 
 - name: Nodejs Setup
+  tags: nodejs
   import_tasks: nodejs.yml
 
 - name: Neovim Setup
+  tags: nvim
   import_tasks: neovim.yml
+
+- name: Docker Setup
+  tags: docker
+  import_tasks: docker.yml
