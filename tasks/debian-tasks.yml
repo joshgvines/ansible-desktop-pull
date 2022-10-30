@@ -25,9 +25,8 @@
     distro_codename: focal
   when: ansible_facts['distribution'] == 'Linux Mint'
 
-- name: Nodejs Setup
-  tags: nodejs
-  import_tasks: nodejs.yml
+- debug:
+    msg: "Using distro codename {{ distro_codename }}"
 
 - name: Neovim Setup
   tags: nvim
@@ -40,3 +39,8 @@
 - name: Rust Setup
   tags: rust
   import_tasks: rust.yml
+
+- name: Nodejs Setup
+  tags: nodejs
+  import_tasks: nodejs.yml
+
