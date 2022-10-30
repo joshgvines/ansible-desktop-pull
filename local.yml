@@ -1,9 +1,17 @@
 ---
 - hosts: localhost
   connection: local
-  become: true
+
+  vars:
+    tmp_install_path: /var/tmp/
+    regular_user: "{{ ansible_env.SUDO_USER }}"
 
   tasks:
+
+    - name: debug through ansible.env
+      debug: var=ansible_env.HOME
+
+    - debug: var=regular_user
 
     - import_tasks: ./tasks/debian-tasks.yml
       when: ansible_os_family == 'Debian'

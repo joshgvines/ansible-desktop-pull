@@ -10,11 +10,17 @@
       - apt-transport-https
       - software-properties-common
       - ca-certificates
+      - build-essential
       - curl
     state: latest
     update_cache: true
 
-- name: set distro codename when OS is Linux Mint
+# Temp fix to set distro_codename for apt repos
+- name: Set distro codename for repos
+  ansible.builtin.set_fact:
+    distro_codename: "{{ ansible_distribution_release }}"
+
+- name: Override distro codename when OS is Linux Mint
   ansible.builtin.set_fact:
     distro_codename: focal
   when: ansible_facts['distribution'] == 'Linux Mint'
@@ -30,3 +36,7 @@
 - name: Docker Setup
   tags: docker
   import_tasks: docker.yml
+
+- name: Rust Setup
+  tags: rust
+  import_tasks: rust.yml
