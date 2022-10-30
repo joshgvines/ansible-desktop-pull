@@ -4,23 +4,35 @@
   register: cargo_exists
   ignore_errors: yes
 
-- name: Rust Install gcc
+- name: Install gcc for Rust
   when: cargo_exists is failed
   apt:
     name: gcc
     state: present
 
-- name: Download Installer
+- name: Get rustup Installer
   when: cargo_exists is failed
-  shell: "curl https://sh.rustup.rs -sSf | sh -s -- -y"
-  changed_when: false
+  get_url:
+    url: https://sh.rustup.rs
+    dest: "{{ tmp_install_path }}sh.rustup.rs"
+    mode: '+x'
 
-    #   url: https://sh.rustup.rs
-    #dest: /tmp/sh.rustup.rs
-    #mode: '0755'
-    #force: 'yes'
+- name: Exec rustup installer
+  when: cargo_exists is failed
+  shell: "{{ tmp_install_path }}sh.rustup.rs -y"
+  args:
+    creates: "/home/{{ regular_user }}/.cargo"
+    executable: /bin/bash
+  environment:
+    RUSTUP_HOME: "/home/{{ regular_user }}/.rustup"
+    CARGO_HOME: "/home/{{ regular_user }}/.cargo"
+  register: rust_install_out
 
-    #- name: install rust/cargo
-    # when: cargo_exists is failed
-    #shell: /tmp/sh.rustup.rs -s -y
+- debug: var=rust_install_out.stdout_lines
+
+- name: Remove rustup installer
+  when: cargo_exists is failed
+  file:
+    path: "{{ tmp_install_path }}sh.rustup.rs"
+    state: absent
 
