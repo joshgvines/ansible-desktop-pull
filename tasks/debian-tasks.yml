@@ -1,8 +1,8 @@
 ---
 - name: Update and upgrade apt
   apt:
-    upgrade: yes
     update_cache: yes
+    upgrade: 'yes'
 
 - name: Install Required System Packages
   apt:
