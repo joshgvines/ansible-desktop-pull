@@ -4,12 +4,6 @@
   register: cargo_exists
   ignore_errors: yes
 
-- name: Install gcc for Rust
-  when: cargo_exists is failed
-  apt:
-    name: gcc
-    state: present
-
 - name: Get rustup Installer
   when: cargo_exists is failed
   get_url:

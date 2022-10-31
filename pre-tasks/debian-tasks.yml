@@ -1,8 +1,8 @@
 ---
 - name: Update and upgrade apt
   apt:
-    upgrade: yes
     update_cache: yes
+    upgrade: 'yes'
 
 - name: Install Required System Packages
   apt:
@@ -10,7 +10,6 @@
       - apt-transport-https
       - software-properties-common
       - ca-certificates
-      - build-essential
       - curl
     state: latest
     update_cache: true
@@ -25,18 +24,6 @@
     distro_codename: focal
   when: ansible_facts['distribution'] == 'Linux Mint'
 
-- name: Nodejs Setup
-  tags: nodejs
-  import_tasks: nodejs.yml
+- debug:
+    msg: "Using distro codename {{ distro_codename }}"
 
-- name: Neovim Setup
-  tags: nvim
-  import_tasks: neovim.yml
-
-- name: Docker Setup
-  tags: docker
-  import_tasks: docker.yml
-
-- name: Rust Setup
-  tags: rust
-  import_tasks: rust.yml
