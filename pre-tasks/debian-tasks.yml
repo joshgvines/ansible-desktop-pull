@@ -9,7 +9,6 @@
     pkg:
       - apt-transport-https
       - software-properties-common
-      - ca-certificates
       - curl
     state: latest
     update_cache: true

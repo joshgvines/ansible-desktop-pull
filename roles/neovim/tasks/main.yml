@@ -1,5 +1,17 @@
 ---
+- name: Check if neovim already installed
+  command: dpkg-query -l neovim
+  register: neovim_check
+
+- name: Neovim Check
+  debug:
+    msg: Neovim already installed. Remove manually in reinstall.
+  when: neovim_check is succeeded
+
 - name: Install neovim
-  apt:
-    name: neovim
-    state: present
+  when: neovim_check is failed
+  import_tasks: neovim.yml
+
+- name: Create Lua plugin directories 
+  when: neovim_check is failed
+  import_tasks: neovim-plugins.yml

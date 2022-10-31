@@ -1,0 +1,15 @@
+---
+- name: Install neovim
+  apt:
+    name: neovim
+    state: present
+   
+- name: use nvim for vi  
+  alternatives: name=vi path=/usr/bin/nvim
+   
+- name: use nvim for vim
+  alternatives: name=vim path=/usr/bin/nvim
+   
+- name: use nvim for editor
+  alternatives: name=editor path=/usr/bin/nvim
+
