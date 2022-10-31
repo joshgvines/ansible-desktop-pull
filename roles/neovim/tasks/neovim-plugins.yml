@@ -7,4 +7,11 @@
   - "/home/{{ regular_user }}/.config/nvim"  
   - "/home/{{ regular_user }}/.config/nvim/after"
   - "/home/{{ regular_user }}/.config/nvim/after/plugin"
-  - "/home/{{ regular_user }}/.config/nvim/lua/plugins"
+  - "/home/{{ regular_user }}/.config/nvim/lua"
+
+- name: Add lua config files
+  copy: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+    - { src: 'init.lua', dest: '/home/{{ regular_user }}/.config/nvim' }
+    - { src: 'set.lua', dest: '/home/{{ regular_user }}/.config/nvim/lua' }
+    - { src: 'plugins.lua', dest: '/home/{{ regular_user }}/.config/nvim/lua' }
