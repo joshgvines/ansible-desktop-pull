@@ -10,7 +10,6 @@
       - apt-transport-https
       - software-properties-common
       - ca-certificates
-      - build-essential
       - curl
     state: latest
     update_cache: true
@@ -27,20 +26,4 @@
 
 - debug:
     msg: "Using distro codename {{ distro_codename }}"
-
-- name: Neovim Setup
-  tags: nvim
-  import_tasks: neovim.yml
-
-- name: Docker Setup
-  tags: docker
-  import_tasks: docker.yml
-
-- name: Rust Setup
-  tags: rust
-  import_tasks: rust.yml
-
-- name: Nodejs Setup
-  tags: nodejs
-  import_tasks: nodejs.yml
 

@@ -1,0 +1,3 @@
+---
+- name: Install neovim and plugins
+  import_tasks: neovim.yml

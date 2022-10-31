@@ -1,0 +1,10 @@
+---
+- name: Install gcc for Rust
+  apt:
+    pkg:
+      - gcc
+      - build-essential
+    state: present
+
+- name: Install rust
+  import_tasks: rust.yml

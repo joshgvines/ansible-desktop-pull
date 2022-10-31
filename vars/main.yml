@@ -1,0 +1,3 @@
+---
+tmp_install_path: /var/tmp/
+regular_user: "{{ ansible_env.SUDO_USER }}"
