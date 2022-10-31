@@ -1,5 +1,5 @@
 ---
-- name: Install gcc for Rust
+- name: Install required packages for Rust
   apt:
     pkg:
       - gcc
