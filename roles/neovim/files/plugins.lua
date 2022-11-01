@@ -13,11 +13,10 @@ end
 local packer_bootstrap = ensure_packer()
 
 return require('packer').startup(function(use)
-
     -- Plugins
     use 'wbthomason/packer.nvim'
     use 'rust-lang/rust.vim'
-    use { 'neoclide/coc.nvim', branch = 'release' }
+    use {'neoclide/coc.nvim', branch = 'release'}
 
     -- Colors
     use 'folke/tokyonight.nvim'
@@ -26,3 +25,4 @@ return require('packer').startup(function(use)
         require('packer').sync()
     end
 end)
+
