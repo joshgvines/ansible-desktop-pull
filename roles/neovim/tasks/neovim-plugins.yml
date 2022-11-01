@@ -4,14 +4,13 @@
     path: "{{ item }}"
     state: directory
   with_items:
-  - "/home/{{ regular_user }}/.config/nvim"  
-  - "/home/{{ regular_user }}/.config/nvim/after"
-  - "/home/{{ regular_user }}/.config/nvim/after/plugin"
-  - "/home/{{ regular_user }}/.config/nvim/lua"
+  - "{{ nvim_config_home }}/after"
+  - "{{ nvim_config_home }}/after/plugin"
+  - "{{ nvim_config_home }}/lua"
 
 - name: Add lua config files
   copy: src={{ item.src }} dest={{ item.dest }}
   with_items:
-    - { src: 'init.lua', dest: '/home/{{ regular_user }}/.config/nvim' }
-    - { src: 'set.lua', dest: '/home/{{ regular_user }}/.config/nvim/lua' }
-    - { src: 'plugins.lua', dest: '/home/{{ regular_user }}/.config/nvim/lua' }
+    - { src: 'init.lua', dest: '{{ nvim_config_home }}' }
+    - { src: 'set.lua', dest: '{{ nvim_config_home }}/lua' }
+    - { src: 'color.lua', dest: '{{ nvim_config_home }}/after/plugin' }

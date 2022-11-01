@@ -1,0 +1,14 @@
+---
+#- name: Clone nvim packer
+#  git:
+#    repo: https://github.com/wbthomason/packer.nvim
+#    dest: "/home/{{ regular_user }}/.local/share/nvim/site/pack/packer/opt/packer.nvim"
+#    clone: yes
+#    depth: 1
+#    update: yes
+
+- name: Copy default nvim packer loader
+  copy:
+    src: 'plugins.lua'
+    dest: "{{ nvim_config_home }}/lua"
+
