@@ -7,6 +7,8 @@
   - "{{ nvim_config_home }}/after"
   - "{{ nvim_config_home }}/after/plugin"
   - "{{ nvim_config_home }}/lua"
+  owner: "{{ regular_user }}"
+  mode: 'u+x'
 
 - name: Add lua config files
   copy: src={{ item.src }} dest={{ item.dest }}
@@ -14,3 +16,5 @@
     - { src: 'init.lua', dest: '{{ nvim_config_home }}' }
     - { src: 'set.lua', dest: '{{ nvim_config_home }}/lua' }
     - { src: 'color.lua', dest: '{{ nvim_config_home }}/after/plugin' }
+  owner: "{{ regular_user }}"
+  mode: 'u+x'
