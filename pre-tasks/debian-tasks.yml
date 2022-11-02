@@ -23,6 +23,11 @@
     distro_codename: focal
   when: ansible_facts['distribution'] == 'Linux Mint'
 
+- name: Override distro codename when OS is Linux Mint
+  ansible.builtin.set_fact:
+    distro_codename: focal
+  when: ansible_facts['distribution'] == 'Debian'
+
 - debug:
     msg: "Using distro codename {{ distro_codename }}"
 
