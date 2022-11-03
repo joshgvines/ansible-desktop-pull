@@ -7,8 +7,8 @@
 #    depth: 1
 #    update: yes
 
-- name: Copy default nvim packer loader
-  copy:
-    src: 'plugins.lua'
-    dest: "{{ nvim_config_home }}/lua"
+#- name: Copy default nvim packer loader
+#  copy:
+#    src: 'plugins.lua'
+#    dest: "{{ nvim_config_home }}/lua"
 

@@ -1,22 +1,22 @@
 ---
 - name: Create neovim config directory
   file:
-    path: "{{ item }}"
+    path: "{{ nvim_config_home }}"
     state: directory
     owner: "{{ regular_user }}"
     mode: 'u+x'
-  with_items:
-    - "{{ nvim_config_home }}/after"
-    - "{{ nvim_config_home }}/after/plugin"
-    - "{{ nvim_config_home }}/lua"
 
-- name: Add lua config files
+- name: Clone nvim config repo
+  git: 
+    repo: https://github.com/joshgvines/my-nvim-config.git
+    dest: "{{ tmp_install_path }}my-nvim-config/"
+    clone: yes
+    depth: 1
+    update: yes
+
+- name: Add lua config from repo 
   copy: 
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
+    src: "{{ tmp_install_path }}my-nvim-config/nvim/"
+    dest: "{{ nvim_config_home }}"
     owner: "{{ regular_user }}"
     mode: 'u+x'
-  with_items:
-    - { src: 'init.lua', dest: '{{ nvim_config_home }}' }
-    - { src: 'set.lua', dest: '{{ nvim_config_home }}/lua' }
-    - { src: 'color.lua', dest: '{{ nvim_config_home }}/after/plugin' }

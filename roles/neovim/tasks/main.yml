@@ -26,5 +26,5 @@
 - name: Create Lua plugin directories 
   import_tasks: neovim-plugins.yml
 
-- name: Install nvim packer plugin
-  import_tasks: neovim-packer.yml
+    #- name: Install nvim packer plugin
+    #  import_tasks: neovim-packer.yml
