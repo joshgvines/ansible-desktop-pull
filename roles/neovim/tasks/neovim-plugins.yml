@@ -1,0 +1,34 @@
+---
+- name: Create neovim config directory
+  file:
+    path: "{{ nvim_config_home }}"
+    state: directory
+    owner: "{{ regular_user }}"
+    mode: 'u+x'
+
+- name: Create fonts config directory
+  file:
+    path: "/home/{{ regular_user }}/.local/share/fonts/"
+    state: directory
+    owner: "{{ regular_user }}"
+
+- name: Copy fonts
+  copy:
+    src: hack-nerd-font-comp.tff
+    dest: "/home/{{ regular_user }}/.local/share/fonts/"
+    owner: "{{ regular_user }}"
+
+- name: Clone nvim config repo
+  git: 
+    repo: https://github.com/joshgvines/my-nvim-config.git
+    dest: "{{ tmp_install_path }}my-nvim-config/"
+    clone: yes
+    depth: 1
+    update: yes
+
+- name: Add lua config from repo 
+  copy: 
+    src: "{{ tmp_install_path }}my-nvim-config/nvim/"
+    dest: "{{ nvim_config_home }}"
+    owner: "{{ regular_user }}"
+    mode: 'u+x'

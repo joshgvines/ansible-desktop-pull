@@ -1,3 +1,10 @@
 ---
+- name: Install required docker packages
+  apt:
+    pkg:
+      - ca-certificates
+    state: present
+    update_cache: true
+
 - name: Install docker
   import_tasks: docker.yml
