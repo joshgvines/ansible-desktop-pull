@@ -1,0 +1,32 @@
+---
+- name: check if cargo is installed
+  shell: command -v cargo
+  register: cargo_exists
+  ignore_errors: yes
+
+- name: Get rustup Installer
+  when: cargo_exists is failed
+  get_url:
+    url: https://sh.rustup.rs
+    dest: "{{ tmp_install_path }}sh.rustup.rs"
+    mode: '+x'
+
+- name: Exec rustup installer
+  when: cargo_exists is failed
+  shell: "{{ tmp_install_path }}sh.rustup.rs -y"
+  args:
+    creates: "/home/{{ regular_user }}/.cargo"
+    executable: /bin/bash
+  environment:
+    RUSTUP_HOME: "/home/{{ regular_user }}/.rustup"
+    CARGO_HOME: "/home/{{ regular_user }}/.cargo"
+  register: rust_install_out
+
+- debug: var=rust_install_out.stdout_lines
+
+- name: Remove rustup installer
+  when: cargo_exists is failed
+  file:
+    path: "{{ tmp_install_path }}sh.rustup.rs"
+    state: absent
+

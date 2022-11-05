@@ -6,18 +6,15 @@
     mode: '+x'
 
 - name: register nodsource
-  become: true
   stat:
     path: /var/tmp/setup_18.sh
   register: node_setup
 
 - name: Exec nodesource setup sh
-  become: true
   shell: /var/tmp/setup_18.sh
   when: node_setup.stat.exists
 
 - name: Remove nodesource setup sh
-  become: true
   file:
     path: /var/tmp/setup_18.sh
     state: absent

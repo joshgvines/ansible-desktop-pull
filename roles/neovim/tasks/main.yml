@@ -1,0 +1,30 @@
+---
+- name: Check if neovim already installed
+  command: which nvim
+  register: neovim_check
+  ignore_errors: true
+
+- name: Neovim Check. Remove if exists
+  when: neovim_check is succeeded
+  apt:
+    name: neovim
+    state: absent
+
+- name: Autoclean neovim if exists 
+  when: neovim_check is succeeded
+  command: apt autoclean neovim
+  ignore_errors: true
+
+- name: Autoclean nvim if exists 
+  when: neovim_check is succeeded
+  command: apt autoclean nvim
+  ignore_errors: true
+
+- name: Install neovim
+  import_tasks: neovim.yml
+
+- name: Create Lua plugin directories 
+  import_tasks: neovim-plugins.yml
+
+    #- name: Install nvim packer plugin
+    #  import_tasks: neovim-packer.yml

@@ -1,0 +1,25 @@
+---
+
+- name: Install vim
+  apt:
+    name: vim
+    state: present
+
+- name: Install Neovim
+  get_url:
+    url: 'https://github.com/neovim/neovim/releases/latest/download/nvim.appimage'
+    dest: "/usr/bin"
+    owner: "{{ regular_user }}"
+    mode: 'u+x'
+
+- name: Use nvim for vim
+  alternatives: name=vim path=/usr/bin/nvim.appimage
+
+- name: Use nvim for vi
+  alternatives: name=vi path=/usr/bin/nvim.appimage
+
+#- name: use nvim for editor
+#  alternatives: name=editor path=/usr/bin/nvim.appimage
+
+
+
