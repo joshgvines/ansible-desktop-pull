@@ -1,16 +1,23 @@
 ---
-- hosts: localhost
+- name: "Local Install For Commonly Used Applications"
+  hosts: localhost
   connection: local
+
   vars_files:
     - vars/main.yml 
 
   pre_tasks:
     - name: Run Pretasks
       include: pre-tasks/main.yml
+      tags: [always]
 
   roles:
-    - neovim
-    - docker
-    - rust
-    - nodejs
+    - role: neovim
+      tags: [nvim, neovim]
+    - role: docker
+      tags: [dkr, docker]
+    - role: rust
+      tags: [rust, rustup]
+    - role: nodejs
+      tags: [node, nodejs]
 
