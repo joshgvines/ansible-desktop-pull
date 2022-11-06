@@ -1,0 +1,8 @@
+---
+
+# TODO: desired code decode repos then update apt cache
+
+- name: Install VLC
+  apt:
+    name: vlc 
+    state: present
