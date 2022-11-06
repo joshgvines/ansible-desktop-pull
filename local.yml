@@ -20,4 +20,6 @@
       tags: [rust, rustup]
     - role: nodejs
       tags: [node, nodejs]
+    - role: vlc
+      tags: [vlc, video]
 
