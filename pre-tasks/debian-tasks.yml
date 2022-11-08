@@ -15,19 +15,26 @@
 
 # Temp fix to set distro_codename for apt repos
 - name: Set distro codename for repos
-  ansible.builtin.set_fact:
+  set_fact:
     distro_codename: "{{ ansible_distribution_release }}"
 
 - name: Override distro codename when OS is Linux Mint
-  ansible.builtin.set_fact:
+  set_fact:
     distro_codename: focal
   when: ansible_facts['distribution'] == 'Linux Mint'
 
-- name: Override distro codename when OS is Linux Mint
-  ansible.builtin.set_fact:
+- name: Override distro codename when OS is Debian
+  set_fact:
     distro_codename: focal
   when: ansible_facts['distribution'] == 'Debian'
 
 - debug:
     msg: "Using distro codename {{ distro_codename }}"
+
+- name: Add repos
+  copy:
+    dest: "/etc/apt/sources.list.d/additional.list"
+    content: |
+      deb http://deb.debian.org/debian/ {{ ansible_distribution_release }} main contrib non-free
+      deb-src http://deb.debian.org/debian/ {{ ansible_distribution_release }} main contrib non-free
 

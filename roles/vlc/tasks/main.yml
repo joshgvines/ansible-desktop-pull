@@ -1,0 +1,11 @@
+---
+
+# TODO: desired code decode repos then update apt cache
+# Use at own risk
+- name: Update non-free and contrib if valid
+  import_tasks: codecs.yml
+
+- name: Install VLC
+  apt:
+    name: vlc
+    state: present

@@ -1,4 +1,10 @@
 ---
+- name: Install required packages for nvim
+  apt:
+    pkg:
+      - gcc
+    state: present
+
 - name: Check if neovim already installed
   command: which nvim
   register: neovim_check

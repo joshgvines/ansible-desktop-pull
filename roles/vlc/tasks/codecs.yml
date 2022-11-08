@@ -1,0 +1,24 @@
+---
+- name: Check for additional repos
+  stat:
+    path: '/etc/apt/sources.list.d/additional.list'
+  register: additional_repos
+
+- debug:
+    msg: "Has Additional Repo Components will attempt adding desired codecs"
+  when: additional_repos.stat.exists
+
+- name: Check Update apt
+  when: additional_repos.stat.exists
+  apt:
+    update_cache: yes
+
+- name: Adding codecs
+  when: additional_repos.stat.exists
+  apt:
+    pkg:
+    - libavcodec-extra
+#    - w64codecs
+#    - w32codecs
+    state: latest
+    update_cache: true

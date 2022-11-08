@@ -8,7 +8,7 @@
 
   pre_tasks:
     - name: Run Pretasks
-      include: pre-tasks/main.yml
+      import_tasks: pre-tasks/main.yml
       tags: [always]
 
   roles:
@@ -20,4 +20,6 @@
       tags: [rust, rustup]
     - role: nodejs
       tags: [node, nodejs]
+    - role: vlc
+      tags: [vlc, video]
 
