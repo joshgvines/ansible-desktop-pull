@@ -31,3 +31,10 @@
 - debug:
     msg: "Using distro codename {{ distro_codename }}"
 
+- name: Add repos
+  copy:
+    dest: "/etc/apt/sources.list.d/additional.list"
+    content: |
+      deb http://deb.debian.org/debian/ {{ ansible_distribution_release }} main contrib non-free
+      deb-src http://deb.debian.org/debian/ {{ ansible_distribution_release }} main contrib non-free
+
